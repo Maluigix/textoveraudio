@@ -15,15 +15,13 @@ bin_str= [1 0 1 0 1 0 1 0 bin_str]%for sync
 for_kron = ones(1,bit_time)%sets up array for use with kronecker tensor product
 out = kron(bin_str,for_kron)%kronecker tensor product, (stretches binary code)
 
-q=size(out)
+q=size(out)%don't really need this, shows up in 'values' calculation below
 
 
 amp=10 %amplitude
 fs= 8192  % sampling frequency
-%duration=1
 freq=440
 values= 1/fs:1/fs:((q(1,2))/fs);
-%values= out.*values
 a=amp*sin(2*pi* freq*values)
 a=a.*out
 sound(a)
