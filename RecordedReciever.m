@@ -1,16 +1,24 @@
-j=audioread('a6.wav');
+j=audioread('a.wav');
+%j=data1;
+%j=filt1;
+%j=clean1';
 
 %plot(j);
-j=[zeros(41,1);j]
+j=[zeros(41,1);j];
 size(j);
 j=abs(j);
-n = bit_time; % average every n values
+n = 200; %bit_time; % average every n values
 av = reshape(cumsum(ones(n,10),2),[],1); % arbitrary data
 b = (arrayfun(@(i) mean(j(i:i+n-1)),1:n:length(j)-n+1)); % the averaged vector
 
+div8=rem(length(b),8);  %just incase not divisable by 8
+if div8 ~= 0
+    div8= zeros(1,8-div8);
+    b=cat(2,b,div8);
+end
 
-    I=find(b<mean(b))
-    J=find(b>mean(b))
-b(I)=0
-b(J)=1
+    I=find(b<mean(b));
+    J=find(b>mean(b));
+b(I)=0;
+b(J)=1;
 str = char(bin2dec(reshape(char(b+'0'), 8,[]).'))'
