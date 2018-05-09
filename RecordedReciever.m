@@ -1,10 +1,10 @@
-j=audioread('a.wav');
-%j=data1;
+%j=audioread('a.wav');
+j=data1;
 %j=filt1;
 %j=clean1';
 
 %plot(j);
-j=[zeros(41,1);j];
+%j=[zeros(41,1);j];
 size(j);
 j=abs(j);
 n = 200; %bit_time; % average every n values
@@ -21,4 +21,5 @@ end
     J=find(b>mean(b));
 b(I)=0;
 b(J)=1;
+b(1:8)=[]; %remove sync bit
 str = char(bin2dec(reshape(char(b+'0'), 8,[]).'))'

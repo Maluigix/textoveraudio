@@ -10,7 +10,8 @@ bin_str = reshape(bin_str', [1, numel(bin_str)]);%makes one long line of binary 
 
 bin_str = logical(bin_str - 48);%changes to logical array
 
-bin_str= [1 0 1 0 1 0 1 0 bin_str];%for sync
+delay16bit=zeros(1,16);
+bin_str= [delay16bit 1 0 1 0 1 0 1 0 bin_str];%for sync
 
 for_kron = ones(1,bit_time);%sets up array for use with kronecker tensor product
 out = kron(bin_str,for_kron);%kronecker tensor product, (stretches binary code)
