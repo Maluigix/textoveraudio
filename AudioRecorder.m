@@ -57,7 +57,7 @@ while poweron ==1
         filt1 = conv(data1,a);              % Filter Signal
 
 
-        filt2=filtfilt(sosbp,gbp,data1);
+%         filt2=filtfilt(sosbp,gbp,data1);
 
 
         clean1=abs(filt1);                  %attempt at cleaning up the data
@@ -69,9 +69,9 @@ while poweron ==1
         clean1 = conv(clean1,a); 
         % clean1(clean1>average/2)=1;
 
-        sync=[1 0 1 0 1 0 1 0];             %sync code             
-        for_kron = ones(1,n);               %sets up array for use with kronecker tensor product
-        sync = kron(sync,for_kron);         %kronecker tensor product
+%         sync=[1 0 1 0 1 0 1 0];             %sync code             
+%         for_kron = ones(1,n);               %sets up array for use with kronecker tensor product
+%         sync = kron(sync,for_kron);         %kronecker tensor product
 
 %         delay = finddelay(sync,clean1);      %attempt at syncing
         trim1=clean1;
@@ -90,8 +90,8 @@ while poweron ==1
         plot(data1)                         %plot original data
         subplot(3,2,2)                      %plot filtered and 'sync?' data
         plot(filt1)                         %plot filtered and 'sync?' data
-        subplot(3,2,3)
-        plot(filt2)
+%         subplot(3,2,3)
+%         plot(filt2)
         subplot(3,2,4)                      %plot clean
         plot(clean1)                        %plot clean
         subplot(3,2,5)                      %plot trimmed
@@ -99,6 +99,18 @@ while poweron ==1
         subplot(3,2,6)                      %plot trimmed
         plot(data3)
         RecordedReciever(trim1');
+       
+        caUserInput = inputdlg(RecordedReciever(trim1'), 'Text to Speech', 1, {defaultString});
+        if isempty(caUserInput)
+            return;
+        end; % Bail out if they clicked Cancel.
+        caUserInput = char(caUserInput); % Convert from cell to string.
+        NET.addAssembly('System.Speech');
+        obj = System.Speech.Synthesis.SpeechSynthesizer;
+        obj.Volume = 100;
+        Speak(obj, caUserInput);
+        
         poweron=0;
+        
     end
 end

@@ -7,7 +7,7 @@ function [str] = RecordedReciever(j)
 
     %plot(j);
     %j=[zeros(41,1);j];
-    size(j);
+%     size(j);
     j=abs(j);
     n = 800; %bit_time; % average every n values
     % av = reshape(cumsum(ones(n,10),2),[],1); % arbitrary data
@@ -19,8 +19,8 @@ function [str] = RecordedReciever(j)
         b=cat(2,b,div8);
     end
 
-        I=find(b<mean(b));
-        J=find(b>mean(b));
+        I=b<mean(b);
+        J=b>mean(b);
     b(I)=0;
     b(J)=1;
     b(1:8)=[]; %remove sync bit
