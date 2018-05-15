@@ -1,3 +1,5 @@
+
+%settings - groove music volume 80%, system volume 80%
 clear;clc;
 poweron=1;
 freq=400;                           %for 400hz sine wave
@@ -98,17 +100,18 @@ while poweron ==1
         plot(trim1)
         subplot(3,2,6)                      %plot trimmed
         plot(data3)
-        RecordedReciever(trim1');
+%         RecordedReciever(trim1');
        
-        caUserInput = inputdlg(RecordedReciever(trim1'), 'Text to Speech', 1, {defaultString});
-        if isempty(caUserInput)
+
+        speak = RecordedReciever(trim1');
+        if isempty(speak)
             return;
-        end; % Bail out if they clicked Cancel.
-        caUserInput = char(caUserInput); % Convert from cell to string.
+        end;                                 % Bail out if nothing.
+        speak = char(speak);                 % Convert from cell to string.
         NET.addAssembly('System.Speech');
         obj = System.Speech.Synthesis.SpeechSynthesizer;
         obj.Volume = 100;
-        Speak(obj, caUserInput);
+        Speak(obj, speak);
         
         poweron=0;
         
