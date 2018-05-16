@@ -7,12 +7,12 @@ n = 800;                            %length of bits
 sensitivity1=5;                     %division of maximum filtered signal strength
 smoothing=20;                       %for 'clean1'
 recstage=0;
-sense2=0.05;
+sense2=0.5;
 
 fs = 8000;                          % Sampling Frequency (Hz)
 Fn = fs/2;                          % Nyquist Frequency (Hz)
-Wp = [300 500]/Fn;                  % Passband Frequencies (Normalised)
-Ws = [290 510]/Fn;                  % Stopband Frequencies (Normalised)
+Wp = [freq*.8 freq*1.2]/Fn;                  % Passband Frequencies (Normalised)
+Ws = [freq*.78 freq*1.22]/Fn;                  % Stopband Frequencies (Normalised)
 Rp = 10;                            % Passband Ripple (dB)
 Rs = 50;                            % Stopband Ripple (dB)
 [n,Ws] = cheb2ord(Wp,Ws,Rp,Rs);     % Filter Order
@@ -26,30 +26,35 @@ while poweron ==1
         recordblocking(recheck,1);              %record obj 'rec' for seconds
         data3 = getaudiodata(recheck);
         filt3=filtfilt(sosbp,gbp,data3);
+        fprintf('looking for %iHz\n',freq)
     end
     
     if recstage == 1
         recheck = audiorecorder(8000,8,1,-1);   %all values are defaults
         recordblocking(recheck,3);              %record obj 'rec' for seconds
-        data2 = getaudiodata(rec);
+        data2 = getaudiodata(recheck);
         filt3=filtfilt(sosbp,gbp,data2);
         filt3=abs(filt3);
+        fprintf('receiving message\n')
     end
     
     if  recstage == 1 && mean(filt3) < (sense2/4)
         stop(rec);
         recstage = 2;
+        fprintf('found end of message\n')
     end
     
     if  recstage == 0 && max(filt3) > sense2
         %record something
         rec = audiorecorder(8000,8,1,-1);   %all values are defaults
         record(rec);              %record obj 'rec' for seconds 
-        
+        fprintf('found %iHz\n',freq)
+        pause(.2);
         recstage=1;
     end
     
     if recstage==2
+        fprintf('generating message\n')
         data1 = getaudiodata(rec);          %get what was recorded in data
        
 
