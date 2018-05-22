@@ -15,6 +15,6 @@ function [str] = RecordedReciever(j)
     b(J)=1;
     %b(1:8)=[]; %remove sync bit
     str = char(bin2dec(reshape(char(b+'0'), 8,[]).'))';
-    fprintf('Message; %s\n',str)
+    fprintf('Message; %s\nMessage Length; %i characters\n',str,length(str))
 end
  

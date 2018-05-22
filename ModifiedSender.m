@@ -1,6 +1,6 @@
 while true
     %Converts inputted text to a usable binary output
-    freq=400;
+    freq=1000;
     n = 800;% setting for samples / bit 
 
     prompt = 'Type some text: (''x'' ends function)\n';%prompt
