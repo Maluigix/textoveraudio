@@ -17,7 +17,7 @@ while true
 
     delay16bit=zeros(1,16);
 
-    bin_str= [delay16bit 1 1 1 1 delay16bit 1 0 1 0 1 0 1 0 bin_str delay16bit];%for sync and delays
+    bin_str= [delay16bit 1 1 1 1 delay16bit bin_str delay16bit];%for sync and delays
 
     for_kron = ones(1,n);%sets up array for use with kronecker tensor product
     out = kron(bin_str,for_kron);%kronecker tensor product, (stretches binary code)

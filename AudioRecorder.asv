@@ -2,8 +2,8 @@
 %settings - groove music volume 80%, system volume 80%
 clear;clc;
 poweron=1;
-freq=1600;                           %for 400hz sine wave
-n = 400;                           %length of bits
+freq=400;                           %for 400hz sine wave
+n = 800;                           %length of bits
 sensitivity1=5;                     %division of maximum filtered signal strength
 smoothing=20;                       %for 'clean1'
 recstage=0;
@@ -53,7 +53,7 @@ while poweron ==1
         record(rec);              %record obj 'rec' for seconds 
         clc;
         fprintf('found %iHz\n',freq)
-        pause(freq/(freq*2));
+        pause(.5);
         recstage=1;
     end
     
