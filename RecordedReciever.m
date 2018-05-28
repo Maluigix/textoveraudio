@@ -1,3 +1,17 @@
+%********Recorded Reciever*************************************************
+% 
+% Description:
+% Converts output from 'Audio Recorder' to a readable string.
+% 
+% Developed by:
+% Rhys Baldwin and Rory Fahey 
+% with Swinburne University.
+% 
+% Date:
+% 23/05/2018
+% 
+% *************************************************************************
+% 
 function [str] = RecordedReciever(j)
     j=abs(j);
     n = 200; %bit_time; % average every n values

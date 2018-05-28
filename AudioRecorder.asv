@@ -13,7 +13,7 @@
 % 
 % Settings: 
 % system volume 80%, requires good microphone otherwise need to reduce 
-% speed via 'n', also could be improved with decent speakers
+% speed via 'n'
 % *************************************************************************
 % 
 clear;clc;                          %clear previous inputs
